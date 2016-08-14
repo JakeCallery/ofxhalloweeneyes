@@ -15,8 +15,6 @@ class ofApp : public ofBaseApp{
 		void draw();
 		void exit();
 
-		void drawPointCloud();
-
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y);
@@ -31,9 +29,6 @@ class ofApp : public ofBaseApp{
 
 		ofxKinect kinect;
 
-#ifdef USE_TWO_KINECTS
-		ofxKinect kinect2;
-#endif
 		ofxCvColorImage colorImg;
 
 		ofxCvGrayscaleImage grayImage; // grayscale depth image
@@ -43,8 +38,7 @@ class ofApp : public ofBaseApp{
 		ofxCvContourFinder contourFinder;
 
 		bool bThreshWithOpenCV;
-		bool bDrawPointCloud;
-
+		
 		int nearThreshold;
 		int farThreshold;
 
