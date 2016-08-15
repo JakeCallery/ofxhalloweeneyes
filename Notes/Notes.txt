@@ -1,0 +1,7 @@
+Halloween Eyes Notes:
+
+Software:
+Maybe find the closest (brightest) pixel from the depth channel, then threshold from that brightness level back a few levels.
+Grab the blob from that.  Point servos to the upper region of that blob
+
+Hardware:
