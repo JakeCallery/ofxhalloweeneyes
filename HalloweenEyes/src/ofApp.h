@@ -3,51 +3,55 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
-#include <vector>
-#include "DepthLayer.h"
 
 // uncomment this to read from two kinects simultaneously
 //#define USE_TWO_KINECTS
 
-class ofApp : public ofBaseApp{
 
-	public:
-		void setup();
-		void update();
-		void draw();
-		void exit();
+class ofApp : public ofBaseApp {
 
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y);
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
+public:
+	void setup();
+	void update();
+	void draw();
+	void exit();
 
-		ofxKinect kinect;
+	void drawPointCloud();
 
-		//ofxCvColorImage colorImg;
+	void keyPressed(int key);
+	void keyReleased(int key);
+	void mouseMoved(int x, int y);
+	void mouseDragged(int x, int y, int button);
+	void mousePressed(int x, int y, int button);
+	void mouseReleased(int x, int y, int button);
+	void mouseEntered(int x, int y);
+	void mouseExited(int x, int y);
+	void windowResized(int w, int h);
+	void dragEvent(ofDragInfo dragInfo);
+	void gotMessage(ofMessage msg);
 
-		ofxCvGrayscaleImage grayImage; // grayscale depth image
-//		ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
-//		ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
+	ofxKinect kinect;
 
-//		ofxCvContourFinder contourFinder;
+#ifdef USE_TWO_KINECTS
+	ofxKinect kinect2;
+#endif
 
-		bool bThreshWithOpenCV;
-		
-		int nearThreshold;
-		int farThreshold;
+	ofxCvColorImage colorImg;
 
-		int angle;
+	ofxCvGrayscaleImage grayImage; // grayscale depth image
+	ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
+	ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
 
-		std::vector<DepthLayer> depthLayers;
+	ofxCvContourFinder contourFinder;
 
-		// used for viewing the point cloud
-		ofEasyCam easyCam;
+	bool bThreshWithOpenCV;
+	bool bDrawPointCloud;
+
+	int nearThreshold;
+	int farThreshold;
+
+	int angle;
+
+	// used for viewing the point cloud
+	ofEasyCam easyCam;
 };
