@@ -5,10 +5,10 @@ void ofApp::setup(){
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
 	// enable depth->video image calibration
-	kinect.setRegistration(true);
+	kinect.setRegistration(false);
 
-						//kinect.init();
-						//kinect.init(true);  // shows infrared instead of RGB video image
+								//kinect.init();
+								//kinect.init(true);  // shows infrared instead of RGB video image
 	kinect.init(false, false); // disable video image (faster fps)
 
 	kinect.open();		// opens first available kinect
@@ -23,15 +23,12 @@ void ofApp::setup(){
 		ofLogNotice() << "zero plane dist: " << kinect.getZeroPlaneDistance() << "mm";
 	}
 
-	colorImg.allocate(kinect.width, kinect.height);
 	grayImage.allocate(kinect.width, kinect.height);
-	grayThreshNear.allocate(kinect.width, kinect.height);
-	grayThreshFar.allocate(kinect.width, kinect.height);
 
-	nearThreshold = 255;
-	farThreshold = 180;
-	bThreshWithOpenCV = false;
-
+	//set up depth layers
+	depthLayers.push_back(DepthLayer(190, 255, kinect.width, kinect.height, 10, (kinect.width * kinect.height)/2, 5));
+	
+	//Target Frame rate
 	ofSetFrameRate(60);
 
 	// zero the tilt on startup
@@ -50,38 +47,10 @@ void ofApp::update(){
 
 		// load grayscale depth image from the kinect source
 		grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
-
-		// we do two thresholds - one for the far plane and one for the near plane
-		// we then do a cvAnd to get the pixels which are a union of the two thresholds
-		if (bThreshWithOpenCV) {
-			grayThreshNear = grayImage;
-			grayThreshFar = grayImage;
-			grayThreshNear.threshold(nearThreshold, true);
-			grayThreshFar.threshold(farThreshold);
-			cvAnd(grayThreshNear.getCvImage(), grayThreshFar.getCvImage(), grayImage.getCvImage(), NULL);
-		}
-		else {
-
-			// or we do it ourselves - show people how they can work with the pixels
-			unsigned char * pix = grayImage.getPixels();
-
-			int numPixels = grayImage.getWidth() * grayImage.getHeight();
-			for (int i = 0; i < numPixels; i++) {
-				if (pix[i] < nearThreshold && pix[i] > farThreshold) {
-					pix[i] = 255;
-				}
-				else {
-					pix[i] = 0;
-				}
-			}
-		}
-
-		// update the cv images
-		grayImage.flagImageChanged();
-
-		// find contours which are between the size of 10 pixels and 1/3 the w*h pixels.
-		// also, if find holes is set to true so we will get interior contours as well....
-		contourFinder.findContours(grayImage, 10, (kinect.width*kinect.height) / 8, 1, false);
+		depthLayers[0].update(grayImage.getPixels());
+		//for (int i = 0; i < depthLayers.size(); i++) {
+		//	depthLayers[i].update(grayImage.getPixels());
+		//}
 	}
 
 }
@@ -93,10 +62,15 @@ void ofApp::draw(){
 	
 	// draw from the live kinect
 	kinect.drawDepth(10, 10, 400, 300);
-	kinect.draw(420, 10, 400, 300);
 
-	grayImage.draw(10, 320, 400, 300);
-	contourFinder.draw(10, 320, 400, 300);
+	depthLayers[0].drawDepth(10, 300, 400, 300);
+	depthLayers[0].drawContours(420, 10, 400, 300);
+	//for (int i = 0; i < depthLayers.size(); i++)
+	//{
+	//	depthLayers[i].drawDepth(10, 300, 400, 300);
+	//	depthLayers[i].drawContours(420, 10, 400, 300);
+	//}
+
 
 	// draw instructions
 	ofSetColor(255, 255, 255);
@@ -112,10 +86,7 @@ void ofApp::draw(){
 			<< "motor / led / accel controls are not currently supported" << endl << endl;
 	}
 
-	reportStream << "using opencv threshold = " << bThreshWithOpenCV << " (press spacebar)" << endl
-		<< "set near threshold " << nearThreshold << " (press: + -)" << endl
-		<< "set far threshold " << farThreshold << " (press: < >) num blobs found " << contourFinder.nBlobs
-		<< ", fps: " << ofGetFrameRate() << endl
+	reportStream << "FPS: " << ofGetFrameRate() << endl
 		<< "press c to close the connection and o to open it again, connection is: " << kinect.isConnected() << endl;
 
 	if (kinect.hasCamTiltControl()) {
@@ -124,36 +95,15 @@ void ofApp::draw(){
 	}
 
 	ofDrawBitmapString(reportStream.str(), 20, 652);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	switch (key) {
+
 	case ' ':
-		bThreshWithOpenCV = !bThreshWithOpenCV;
-		break;
-
-	case '>':
-	case '.':
-		farThreshold++;
-		if (farThreshold > 255) farThreshold = 255;
-		break;
-
-	case '<':
-	case ',':
-		farThreshold--;
-		if (farThreshold < 0) farThreshold = 0;
-		break;
-
-	case '+':
-	case '=':
-		nearThreshold++;
-		if (nearThreshold > 255) nearThreshold = 255;
-		break;
-
-	case '-':
-		nearThreshold--;
-		if (nearThreshold < 0) nearThreshold = 0;
+		depthLayers[0].toggleFindContours();
 		break;
 
 	case 'w':
@@ -166,7 +116,7 @@ void ofApp::keyPressed(int key){
 		break;
 
 	case 'c':
-		//kinect.setCameraTiltAngle(0); // zero the tilt
+		kinect.setCameraTiltAngle(0); // zero the tilt
 		kinect.close();
 		break;
 
@@ -263,5 +213,5 @@ void ofApp::exit() {
 	ofLogNotice() << "exit";
 	kinect.setCameraTiltAngle(0); // zero the tilt on exit
 	kinect.close();
-	system("pause");
+	//system("pause");
 }

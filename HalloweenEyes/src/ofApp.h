@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
+#include <vector>
+#include "DepthLayer.h"
 
 // uncomment this to read from two kinects simultaneously
 //#define USE_TWO_KINECTS
@@ -29,13 +31,13 @@ class ofApp : public ofBaseApp{
 
 		ofxKinect kinect;
 
-		ofxCvColorImage colorImg;
+		//ofxCvColorImage colorImg;
 
 		ofxCvGrayscaleImage grayImage; // grayscale depth image
-		ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
-		ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
+//		ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
+//		ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
 
-		ofxCvContourFinder contourFinder;
+//		ofxCvContourFinder contourFinder;
 
 		bool bThreshWithOpenCV;
 		
@@ -43,6 +45,8 @@ class ofApp : public ofBaseApp{
 		int farThreshold;
 
 		int angle;
+
+		std::vector<DepthLayer> depthLayers;
 
 		// used for viewing the point cloud
 		ofEasyCam easyCam;
