@@ -5,11 +5,11 @@ void ofApp::setup(){
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
 	// enable depth->video image calibration
-	kinect.setRegistration(false);
+	kinect.setRegistration(true);
 
-								//kinect.init();
+	kinect.init();
 								//kinect.init(true);  // shows infrared instead of RGB video image
-	kinect.init(false, false); // disable video image (faster fps)
+	//kinect.init(false, false); // disable video image (faster fps)
 
 	kinect.open();		// opens first available kinect
 						//kinect.open(1);	// open a kinect by id, starting with 0 (sorted by serial # lexicographically))
@@ -26,7 +26,7 @@ void ofApp::setup(){
 	grayImage.allocate(kinect.width, kinect.height);
 
 	//set up depth layers
-	depthLayers.push_back(DepthLayer(190, 255, kinect.width, kinect.height, 10, (kinect.width * kinect.height)/2, 5));
+	depthLayers.push_back(DepthLayer(190, 255, kinect.width, kinect.height, 10, (kinect.width * kinect.height)/2, 1));
 	
 	//Target Frame rate
 	ofSetFrameRate(60);
@@ -47,7 +47,8 @@ void ofApp::update(){
 
 		// load grayscale depth image from the kinect source
 		grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
-		depthLayers[0].update(grayImage.getPixels());
+		//depthLayers[0].update(grayImage.getPixels());
+		depthLayers[0].update(grayImage);
 		//for (int i = 0; i < depthLayers.size(); i++) {
 		//	depthLayers[i].update(grayImage.getPixels());
 		//}
@@ -62,6 +63,7 @@ void ofApp::draw(){
 	
 	// draw from the live kinect
 	kinect.drawDepth(10, 10, 400, 300);
+	kinect.draw(420, 300, 400, 300);
 
 	depthLayers[0].drawDepth(10, 300, 400, 300);
 	depthLayers[0].drawContours(420, 10, 400, 300);
