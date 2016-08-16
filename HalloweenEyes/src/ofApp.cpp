@@ -7,15 +7,10 @@ void ofApp::setup() {
 	// enable depth->video image calibration
 	kinect.setRegistration(true);
 
-	kinect.init();
-	//kinect.init(true); // shows infrared instead of RGB video image
-	//kinect.init(false, false); // disable video image (faster fps)
+	//start up kinect
+	kinect.init(true);
+	kinect.open();
 
-	kinect.open();		// opens first available kinect
-						//kinect.open(1);	// open a kinect by id, starting with 0 (sorted by serial # lexicographically))
-						//kinect.open("A00362A08602047A");	// open a kinect using it's unique serial #
-
-						// print the intrinsic IR sensor values
 	if (kinect.isConnected()) {
 		ofLogNotice() << "sensor-emitter dist: " << kinect.getSensorEmitterDistance() << "cm";
 		ofLogNotice() << "sensor-camera dist:  " << kinect.getSensorCameraDistance() << "cm";
@@ -23,28 +18,24 @@ void ofApp::setup() {
 		ofLogNotice() << "zero plane dist: " << kinect.getZeroPlaneDistance() << "mm";
 	}
 
-#ifdef USE_TWO_KINECTS
-	kinect2.init();
-	kinect2.open();
-#endif
-
+	//Grab some memory for frames
 	colorImg.allocate(kinect.width, kinect.height);
 	grayImage.allocate(kinect.width, kinect.height);
 	grayThreshNear.allocate(kinect.width, kinect.height);
 	grayThreshFar.allocate(kinect.width, kinect.height);
 
+	//Set starting params
 	nearThreshold = 230;
 	farThreshold = 70;
 	bThreshWithOpenCV = false;
 
+	//set up openFrameworks target framerate
 	ofSetFrameRate(60);
 
-	// zero the tilt on startup
+	// reset tilt
 	angle = 0;
 	kinect.setCameraTiltAngle(angle);
 
-	// start from the front
-	bDrawPointCloud = false;
 }
 
 //--------------------------------------------------------------
@@ -91,33 +82,18 @@ void ofApp::update() {
 		// also, find holes is set to true so we will get interior contours as well....
 		contourFinder.findContours(grayImage, 10, (kinect.width*kinect.height) / 2, 20, false);
 	}
-
-#ifdef USE_TWO_KINECTS
-	kinect2.update();
-#endif
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 	ofSetColor(255, 255, 255);
 
-	if (bDrawPointCloud) {
-		easyCam.begin();
-		drawPointCloud();
-		easyCam.end();
-	}
-	else {
-		// draw from the live kinect
-		kinect.drawDepth(10, 10, 400, 300);
-		kinect.draw(420, 10, 400, 300);
+	// draw from the live kinect
+	kinect.drawDepth(10, 10, 400, 300);
+	kinect.draw(420, 10, 400, 300);
 
-		grayImage.draw(10, 320, 400, 300);
-		contourFinder.draw(10, 320, 400, 300);
-
-#ifdef USE_TWO_KINECTS
-		kinect2.draw(420, 320, 400, 300);
-#endif
-	}
+	grayImage.draw(10, 320, 400, 300);
+	contourFinder.draw(10, 320, 400, 300);
 
 	// draw instructions
 	ofSetColor(255, 255, 255);
@@ -153,10 +129,6 @@ void ofApp::keyPressed(int key) {
 	switch (key) {
 	case ' ':
 		bThreshWithOpenCV = !bThreshWithOpenCV;
-		break;
-
-	case'p':
-		bDrawPointCloud = !bDrawPointCloud;
 		break;
 
 	case '>':
@@ -284,37 +256,9 @@ void ofApp::dragEvent(ofDragInfo dragInfo) {
 
 }
 
-void ofApp::drawPointCloud() {
-	int w = 640;
-	int h = 480;
-	ofMesh mesh;
-	mesh.setMode(OF_PRIMITIVE_POINTS);
-	int step = 2;
-	for (int y = 0; y < h; y += step) {
-		for (int x = 0; x < w; x += step) {
-			if (kinect.getDistanceAt(x, y) > 0) {
-				mesh.addColor(kinect.getColorAt(x, y));
-				mesh.addVertex(kinect.getWorldCoordinateAt(x, y));
-			}
-		}
-	}
-	glPointSize(3);
-	ofPushMatrix();
-	// the projected points are 'upside down' and 'backwards' 
-	ofScale(1, -1, -1);
-	ofTranslate(0, 0, -1000); // center the points a bit
-	glEnable(GL_DEPTH_TEST);
-	mesh.drawVertices();
-	glDisable(GL_DEPTH_TEST);
-	ofPopMatrix();
-}
-
 //--------------------------------------------------------------
 void ofApp::exit() {
 	kinect.setCameraTiltAngle(0); // zero the tilt on exit
 	kinect.close();
 
-#ifdef USE_TWO_KINECTS
-	kinect2.close();
-#endif
 }

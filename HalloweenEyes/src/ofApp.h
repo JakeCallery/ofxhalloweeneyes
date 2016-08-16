@@ -4,9 +4,6 @@
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
 
-// uncomment this to read from two kinects simultaneously
-//#define USE_TWO_KINECTS
-
 
 class ofApp : public ofBaseApp {
 
@@ -15,8 +12,6 @@ public:
 	void update();
 	void draw();
 	void exit();
-
-	void drawPointCloud();
 
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -32,10 +27,6 @@ public:
 
 	ofxKinect kinect;
 
-#ifdef USE_TWO_KINECTS
-	ofxKinect kinect2;
-#endif
-
 	ofxCvColorImage colorImg;
 
 	ofxCvGrayscaleImage grayImage; // grayscale depth image
@@ -45,7 +36,6 @@ public:
 	ofxCvContourFinder contourFinder;
 
 	bool bThreshWithOpenCV;
-	bool bDrawPointCloud;
 
 	int nearThreshold;
 	int farThreshold;
