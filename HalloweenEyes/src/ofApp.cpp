@@ -25,8 +25,8 @@ void ofApp::setup() {
 	grayThreshFar.allocate(kinect.width, kinect.height);
 
 	//Set starting params
-	nearThreshold = 230;
-	farThreshold = 70;
+	baseNearThreshold = 255;
+	baseFarThreshold = 0;
 
 	//set up openFrameworks target framerate
 	ofSetFrameRate(60);
@@ -49,12 +49,25 @@ void ofApp::update() {
 		// load grayscale depth image from the kinect source
 		grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
 
-		// or we do it ourselves - show people how they can work with the pixels
+		//get pointer to pixels
 		unsigned char * pix = grayImage.getPixels();
 
+		//calc number of linear pixels
 		int numPixels = grayImage.getWidth() * grayImage.getHeight();
+
+		//Search for closest/brightest pixel
+		int brightestPixelBrightness = 0;
+		for (int p = 0; p < numPixels; p++) {
+			if (pix[p] > brightestPixelBrightness) {
+				brightestPixelBrightness = pix[p];
+			}
+		}
+
+		frontThreshold = brightestPixelBrightness;
+		backThreshold = frontThreshold - threshDepth;
+
 		for (int i = 0; i < numPixels; i++) {
-			if (pix[i] < nearThreshold && pix[i] > farThreshold) {
+			if (pix[i] < frontThreshold && pix[i] > backThreshold) {
 				pix[i] = 255;
 			}
 			else {
@@ -97,9 +110,10 @@ void ofApp::draw() {
 	}
 
 	reportStream << "press p to switch between images and point cloud, rotate the point cloud with the mouse" << endl
-		<< "using opencv threshold = " << bThreshWithOpenCV << " (press spacebar)" << endl
-		<< "set near threshold " << nearThreshold << " (press: + -)" << endl
-		<< "set far threshold " << farThreshold << " (press: < >) num blobs found " << contourFinder.nBlobs
+		<< "threshDepth: " << threshDepth << endl
+		<< "set near threshold " << frontThreshold << " (press: + -)" << endl
+		<< "set far threshold " << backThreshold << endl 
+		<< " num blobs found " << contourFinder.nBlobs
 		<< ", fps: " << ofGetFrameRate() << endl
 		<< "press c to close the connection and o to open it again, connection is: " << kinect.isConnected() << endl;
 
@@ -118,27 +132,15 @@ void ofApp::keyPressed(int key) {
 		bThreshWithOpenCV = !bThreshWithOpenCV;
 		break;
 
-	case '>':
-	case '.':
-		farThreshold++;
-		if (farThreshold > 255) farThreshold = 255;
-		break;
-
-	case '<':
-	case ',':
-		farThreshold--;
-		if (farThreshold < 0) farThreshold = 0;
-		break;
-
-	case '+':
 	case '=':
-		nearThreshold++;
-		if (nearThreshold > 255) nearThreshold = 255;
+	case '+':
+		threshDepth++;
+		threshDepth > 255 ? threshDepth = 255 : threshDepth = threshDepth;
 		break;
 
 	case '-':
-		nearThreshold--;
-		if (nearThreshold < 0) nearThreshold = 0;
+		threshDepth--;
+		threshDepth < 0  ? threshDepth = 0 : threshDepth = threshDepth;
 		break;
 
 	case 'w':

@@ -4,7 +4,6 @@
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
 
-
 class ofApp : public ofBaseApp {
 
 public:
@@ -37,8 +36,11 @@ public:
 
 	bool bThreshWithOpenCV;
 
-	int nearThreshold;
-	int farThreshold;
+	int baseNearThreshold;
+	int baseFarThreshold;
+	int threshDepth = 15;
+	int frontThreshold;
+	int backThreshold;
 
 	int angle;
 
