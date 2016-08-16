@@ -27,7 +27,6 @@ void ofApp::setup() {
 	//Set starting params
 	nearThreshold = 230;
 	farThreshold = 70;
-	bThreshWithOpenCV = false;
 
 	//set up openFrameworks target framerate
 	ofSetFrameRate(60);
@@ -50,31 +49,19 @@ void ofApp::update() {
 		// load grayscale depth image from the kinect source
 		grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
 
-		// we do two thresholds - one for the far plane and one for the near plane
-		// we then do a cvAnd to get the pixels which are a union of the two thresholds
-		if (bThreshWithOpenCV) {
-			grayThreshNear = grayImage;
-			grayThreshFar = grayImage;
-			grayThreshNear.threshold(nearThreshold, true);
-			grayThreshFar.threshold(farThreshold);
-			cvAnd(grayThreshNear.getCvImage(), grayThreshFar.getCvImage(), grayImage.getCvImage(), NULL);
-		}
-		else {
+		// or we do it ourselves - show people how they can work with the pixels
+		unsigned char * pix = grayImage.getPixels();
 
-			// or we do it ourselves - show people how they can work with the pixels
-			unsigned char * pix = grayImage.getPixels();
-
-			int numPixels = grayImage.getWidth() * grayImage.getHeight();
-			for (int i = 0; i < numPixels; i++) {
-				if (pix[i] < nearThreshold && pix[i] > farThreshold) {
-					pix[i] = 255;
-				}
-				else {
-					pix[i] = 0;
-				}
+		int numPixels = grayImage.getWidth() * grayImage.getHeight();
+		for (int i = 0; i < numPixels; i++) {
+			if (pix[i] < nearThreshold && pix[i] > farThreshold) {
+				pix[i] = 255;
+			}
+			else {
+				pix[i] = 0;
 			}
 		}
-
+	
 		// update the cv images
 		grayImage.flagImageChanged();
 
