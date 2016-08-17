@@ -24,10 +24,6 @@ void ofApp::setup() {
 	grayThreshNear.allocate(kinect.width, kinect.height);
 	grayThreshFar.allocate(kinect.width, kinect.height);
 
-	//Set starting params
-	baseNearThreshold = 255;
-	baseFarThreshold = 0;
-
 	//set up openFrameworks target framerate
 	ofSetFrameRate(60);
 
