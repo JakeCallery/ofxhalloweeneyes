@@ -8,8 +8,8 @@ Adafruit_PWMServoDriver pwm1 = Adafruit_PWMServoDriver(0x40);
 // want these to be as small/large as possible without hitting the hard stop
 // for max range. You'll have to tweak them as necessary to match the servos you
 // have!
-#define SERVOMIN  150 // this is the 'minimum' pulse length count (out of 4096)
-#define SERVOMAX  700 // this is the 'maximum' pulse length count (out of 4096)
+#define SERVOMIN  160 // this is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX  600 // this is the 'maximum' pulse length count (out of 4096)
 
 void setup() {
   // put your setup code here, to run once:
@@ -19,8 +19,8 @@ void setup() {
   pwm1.setPWMFreq(60);
 
   //Set to middle to start
-  pwm1.setPWM(0,0, round((SERVOMAX - SERVOMIN)/2));
-  pwm1.setPWM(1,0, round((SERVOMAX - SERVOMIN)/2));
+  pwm1.setPWM(0,0, round((SERVOMAX - SERVOMIN)/2)+SERVOMIN);
+  pwm1.setPWM(1,0, round((SERVOMAX - SERVOMIN)/2)+SERVOMIN);
 }
 
 void loop() {
@@ -31,22 +31,11 @@ void loop() {
     inByte = Serial.read();
 
     int servoVal = (int)inByte;
-//    Serial.print("Raw In: ");
-//    Serial.println(servoVal, DEC);
-    float scaleFactor = (SERVOMAX - SERVOMIN) / 255;
-    servoVal = round((float)servoVal * (float)scaleFactor);
-//    Serial.print("Scaled: ");
-//    Serial.println(servoVal);
-    servoVal += SERVOMIN;
-//    Serial.print("Shifted to Range: ");
-//    Serial.println(servoVal);
-    
-    if(servoVal > SERVOMAX) servoVal = SERVOMAX;
-    if(servoVal < SERVOMIN) servoVal = SERVOMIN;
-//    Serial.print("After Capping: ");
-//    Serial.println(servoVal);
-//    Serial.println("==============");
+    servoVal = map(servoVal,0,255,SERVOMIN,SERVOMAX);
+    //Serial.print("Shifted to Range: ");
+    //Serial.println(servoVal);
     
     pwm1.setPWM(0,0,servoVal);
+    pwm1.setPWM(1,0,servoVal);
   }
 }
