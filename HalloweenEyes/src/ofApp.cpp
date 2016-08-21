@@ -4,6 +4,13 @@
 void ofApp::setup() {
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
+	//Set up serial communication to arduino
+	serial.listDevices();
+	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
+
+	int baud = 57600;
+	serial.setup("COM8", baud);
+
 	// enable depth->video image calibration
 	kinect.setRegistration(true);
 
@@ -78,6 +85,33 @@ void ofApp::update() {
 		// also, find holes is set to true so we will get interior contours as well....
 		contourFinder.findContours(grayImage, 10, (kinect.width*kinect.height) / 2, 1, false);
 	}
+
+	//send new info to arduino
+	if (serial.isInitialized()) {
+		//We will send 4 bytes, 0-255 for each servo
+		//Byte 0: left eye x
+		//Byte 1: left eye y
+		//Byte 2: right eye x
+		//Byte 3: right eye y
+	}
+
+	//Log out info from Arduino
+	static string str;
+	stringstream ss;
+	char ch;
+	int readLimit = 1000;
+	bool anyBytes = false;
+	while ((ch = serial.readByte()) > 0 && readLimit-- > 0) {
+		ss << ch;
+		anyBytes = true;
+	}
+
+	if (anyBytes) {
+		str += ss.str();
+		ofLog(OF_LOG_NOTICE, str);
+		anyBytes = false;
+	}
+
 }
 
 //--------------------------------------------------------------
@@ -246,4 +280,9 @@ void ofApp::exit() {
 	kinect.setCameraTiltAngle(0); // zero the tilt on exit
 	kinect.close();
 
+}
+
+//--------------------------------------------------------------
+int ofApp::mapInt(int x, int in_min, int in_max, int out_min, int out_max) {
+	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

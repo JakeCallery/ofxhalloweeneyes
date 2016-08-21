@@ -24,6 +24,8 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+	int mapInt(int x, int in_min, int in_max, int out_min, int out_max);
+
 	ofxKinect kinect;
 
 	ofxCvColorImage colorImg;
@@ -44,6 +46,7 @@ public:
 
 	int angle;
 
-	// used for viewing the point cloud
-	ofEasyCam easyCam;
+	ofSerial serial;
+
+	
 };
