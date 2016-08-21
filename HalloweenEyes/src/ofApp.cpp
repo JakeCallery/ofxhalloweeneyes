@@ -93,25 +93,25 @@ void ofApp::update() {
 		//Byte 1: left eye y
 		//Byte 2: right eye x
 		//Byte 3: right eye y
-	}
 
-	//Log out info from Arduino
-	static string str;
-	stringstream ss;
-	char ch;
-	int readLimit = 1000;
-	bool anyBytes = false;
-	while ((ch = serial.readByte()) > 0 && readLimit-- > 0) {
-		ss << ch;
-		anyBytes = true;
-	}
+		//Log out info from Arduino
+		static string str;
+		stringstream ss;
+		char ch;
+		int readLimit = 1000;
+		bool anyBytes = false;
+		while ((ch = serial.readByte()) > 0 && readLimit-- > 0) {
+			ss << ch;
+			anyBytes = true;
+		}
 
-	if (anyBytes) {
-		str += ss.str();
-		ofLog(OF_LOG_NOTICE, str);
-		anyBytes = false;
-	}
+		if (anyBytes) {
+			str += ss.str();
+			ofLog(OF_LOG_NOTICE, str);
+			anyBytes = false;
+		}
 
+	}
 }
 
 //--------------------------------------------------------------
