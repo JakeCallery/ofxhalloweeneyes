@@ -2,7 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	ofSetLogLevel(OF_LOG_VERBOSE);
+	//ofSetLogLevel(OF_LOG_VERBOSE);
+	ofSetLogLevel(OF_LOG_NOTICE);
 
 	//Set up serial communication to arduino
 	serial.listDevices();
@@ -45,6 +46,10 @@ void ofApp::update() {
 	ofBackground(100, 100, 100);
 
 	kinect.update();
+	ofxCvBlob blob;
+	bool newBlob = false;
+	int brightestPixelBrightness = -1;
+	int brightestPixelIndex = -1;
 
 	// there is a new frame and we are connected
 	if (kinect.isFrameNew()) {
@@ -59,10 +64,10 @@ void ofApp::update() {
 		int numPixels = grayImage.getWidth() * grayImage.getHeight();
 
 		//Search for closest/brightest pixel
-		int brightestPixelBrightness = 0;
 		for (int p = 0; p < numPixels; p++) {
 			if (pix[p] > brightestPixelBrightness) {
 				brightestPixelBrightness = pix[p];
+				brightestPixelIndex = p;
 			}
 		}
 
@@ -83,16 +88,44 @@ void ofApp::update() {
 
 		// find contours which are between the size of 20 pixels and 1/3 the w*h pixels.
 		// also, find holes is set to true so we will get interior contours as well....
+		newBlob = false;
 		contourFinder.findContours(grayImage, 10, (kinect.width*kinect.height) / 2, 1, false);
+		if (contourFinder.nBlobs > 0) {
+			newBlob = true;
+			blob = contourFinder.blobs[0];
+		}
 	}
 
 	//send new info to arduino
-	if (serial.isInitialized()) {
-		//We will send 4 bytes, 0-255 for each servo
-		//Byte 0: left eye x
-		//Byte 1: left eye y
-		//Byte 2: right eye x
-		//Byte 3: right eye y
+	if (serial.isInitialized() && newBlob) {
+
+		//Calculate horizontal / vertial servo positions
+		
+
+		//TODO: Implement "look at" for each servo
+		//http://www.euclideanspace.com/maths/algebra/vectors/lookat/
+		//Just testing set up right now with direct horizontal mapping and serial protocol
+
+
+		//We will send 1 initByte of 255 and 4 bytes, 0-254 for each servo (5 bytes total)
+		//InitByte
+		unsigned char initByte = 255;
+	
+		//Byte0: left eye x
+		unsigned char byte0 = mapInt((int)blob.centroid.x, 0, ofGetWindowWidth(), 0, 254);
+		
+		//Byte1: left eye y
+		unsigned char byte1 = 0;
+		
+		//Byte2: right eye x
+		unsigned char byte2 = mapInt((int)blob.centroid.x, 0, ofGetWindowWidth(), 0, 254);
+		
+		//Byte3: right eye y
+		unsigned char byte3 = 0;
+
+		//Write bytes
+		unsigned char buf[5] = { initByte, byte0, byte1, byte2, byte3};
+		serial.writeBytes(&buf[0], 5);
 
 		//Log out info from Arduino
 		static string str;
