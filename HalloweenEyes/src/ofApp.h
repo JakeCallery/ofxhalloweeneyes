@@ -24,6 +24,10 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+	const int RENDER_X_OFFSET = 300;
+	const int RENDER_Y_OFFSET = 10;
+
+
 	int mapInt(int x, int in_min, int in_max, int out_min, int out_max);
 
 	ofxKinect kinect;
@@ -46,6 +50,9 @@ public:
 
 	int angle;
 
+	ofBoxPrimitive targetBox;
+	ofLight light;
+	ofCamera cam;
 	ofSerial serial;
 
 	

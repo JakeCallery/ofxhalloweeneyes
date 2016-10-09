@@ -16,7 +16,7 @@ void ofApp::setup() {
 	kinect.setRegistration(true);
 
 	//start up kinect
-	kinect.init(true);
+	kinect.init(true,false);
 	kinect.open();
 
 	if (kinect.isConnected()) {
@@ -38,6 +38,11 @@ void ofApp::setup() {
 	// reset tilt
 	angle = 0;
 	kinect.setCameraTiltAngle(angle);
+
+	//setup 3d render
+	targetBox.set(50);
+	cam.setPosition(0.0, 1000, 0.0);
+	cam.rotate(-90.0, 1.0, 0.0, 0.0);
 
 }
 
@@ -104,6 +109,7 @@ void ofApp::update() {
 
 		//TODO: Implement "look at" for each servo
 		//http://www.euclideanspace.com/maths/algebra/vectors/lookat/
+		//https://keithmaggio.wordpress.com/2011/01/19/math-magician-lookat-algorithm/
 		//Just testing set up right now with direct horizontal mapping and serial protocol
 
 
@@ -154,7 +160,7 @@ void ofApp::draw() {
 
 	// draw from the live kinect
 	kinect.drawDepth(10, 10, 400, 300);
-	kinect.draw(420, 10, 400, 300);
+	//kinect.draw(420, 10, 400, 300);
 
 	grayImage.draw(10, 320, 400, 300);
 	contourFinder.draw(10, 320, 400, 300);
@@ -187,6 +193,13 @@ void ofApp::draw() {
 	}
 
 	ofDrawBitmapString(reportStream.str(), 20, 652);
+
+	//Draw 3D render
+	cam.begin();
+	ofSetColor(255, 0, 0, 255);
+	targetBox.draw();
+	targetBox.drawAxes(200);
+	cam.end();
 }
 
 //--------------------------------------------------------------
