@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include <math.h>
 
 //--------------------------------------------------------------
 void ofApp::setup() {
@@ -53,7 +54,7 @@ void ofApp::setup() {
 	//Set target offsets
 	targetXOffset = 0;
 	targetYOffset = 0;
-	targetZOffset = -200;
+	targetZOffset = -50;
 
 	targetXScale = 1.0;
 	targetYScale = 1.0;
@@ -145,29 +146,38 @@ void ofApp::update() {
 	if (serial.isInitialized() && newBlob) {
 
 		//Calculate horizontal / vertial servo positions
-		
+		//left eye
+		ofVec3f leftEyeOrientation = leftEyeParentBox.getOrientationEuler();
+		ofLogNotice("Left Vect: ") << leftEyeOrientation;
 
-		//TODO: Implement "look at" for each servo
-		//http://www.euclideanspace.com/maths/algebra/vectors/lookat/
-		//https://keithmaggio.wordpress.com/2011/01/19/math-magician-lookat-algorithm/
-		//Just testing set up right now with direct horizontal mapping and serial protocol
+		unsigned char leftEyeHorizontal = mapInt(leftEyeOrientation.y, -90.0, 90.0, 0, 254);
+		unsigned char leftEyeVertical = mapInt(leftEyeOrientation.x, -90.0, 90.0, 0, 254);
+
+		//right eye
+		ofVec3f rightEyeOrientation = rightEyeParentBox.getOrientationEuler();
+		unsigned char rightEyeHorizontal = mapInt(rightEyeOrientation.y, -90.0, 90.0, 0, 254);
+		unsigned char rightEyeVertical = mapInt(rightEyeOrientation.x, -90.0, 90.0, 0, 254);
+
+		ofLogNotice("Left Eye: ") << (unsigned int)leftEyeHorizontal << "," << (unsigned int)leftEyeVertical;
+		ofLogNotice("Right Eye: ") << (unsigned int)rightEyeHorizontal << "," << (unsigned int)rightEyeVertical;
 
 
 		//We will send 1 initByte of 255 and 4 bytes, 0-254 for each servo (5 bytes total)
 		//InitByte
 		unsigned char initByte = 255;
 		//ofLogNotice() << blob.centroid.x;
+		
 		//Byte0: left eye x
-		unsigned char byte0 = mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254);
+		unsigned char byte0 = leftEyeHorizontal;
 		
 		//Byte1: left eye y
-		unsigned char byte1 = mapInt((int)blob.centroid.y, 0, kinect.height, 0, 254);
+		unsigned char byte1 = leftEyeVertical;
 
 		//Byte2: right eye x
-		unsigned char byte2 = mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254);
+		unsigned char byte2 = rightEyeHorizontal;
 		
 		//Byte3: right eye y
-		unsigned char byte3 = mapInt((int)blob.centroid.y, 0, kinect.height, 0, 254);
+		unsigned char byte3 = rightEyeVertical;
 
 		//Write bytes
 		unsigned char buf[5] = { initByte, byte0, byte1, byte2, byte3};
