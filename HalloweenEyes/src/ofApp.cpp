@@ -40,7 +40,7 @@ void ofApp::setup() {
 	kinect.setCameraTiltAngle(angle);
 
 	//setup 3d render
-	camViewport.set(RENDER_X_OFFSET, RENDER_Y_OFFSET, 400, 300);
+	camViewport.set(RENDER_X_OFFSET, RENDER_Y_OFFSET, RENDER_WIDTH, RENDER_HEIGHT);
 	targetBox.set(50);
 	cam.setPosition(0.0, 1000, 0.0);
 	cam.rotate(-90.0, 1.0, 0.0, 0.0);

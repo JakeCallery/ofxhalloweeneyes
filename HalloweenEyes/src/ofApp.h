@@ -26,6 +26,8 @@ public:
 
 	const int RENDER_X_OFFSET = 420;
 	const int RENDER_Y_OFFSET = 10;
+	const int RENDER_WIDTH = 400;
+	const int RENDER_HEIGHT = 300;
 
 
 	int mapInt(int x, int in_min, int in_max, int out_min, int out_max);
