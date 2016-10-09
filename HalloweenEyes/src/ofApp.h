@@ -56,6 +56,9 @@ public:
 	ofLight light;
 	ofCamera cam;
 	ofRectangle camViewport;
+	ofConePrimitive leftEyeCone;
+	ofConePrimitive rightEyeCone;
+
 	ofSerial serial;
 
 	

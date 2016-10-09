@@ -41,9 +41,22 @@ void ofApp::setup() {
 
 	//setup 3d render
 	camViewport.set(RENDER_X_OFFSET, RENDER_Y_OFFSET, RENDER_WIDTH, RENDER_HEIGHT);
-	targetBox.set(50);
 	cam.setPosition(0.0, 1000, 0.0);
 	cam.rotate(-90.0, 1.0, 0.0, 0.0);
+
+	//Default location for target box
+	targetBox.set(50);
+	targetBox.setPosition(0, 0, 0);
+
+	//Set up left and right eyes
+	leftEyeCone.set(25, 25, 5, 2);
+	rightEyeCone.set(25, 25, 5, 2);
+	leftEyeCone.rotate(90, 1.0, 0.0, 0.0);
+	rightEyeCone.rotate(90, 1.0, 0.0, 0.0);
+
+	leftEyeCone.setPosition(-100, 0, 100);
+	rightEyeCone.setPosition(100, 0, 100);
+
 
 }
 
@@ -199,6 +212,8 @@ void ofApp::draw() {
 	cam.begin(camViewport);
 	ofSetColor(255, 0, 0, 255);
 	targetBox.draw();
+	leftEyeCone.draw();
+	rightEyeCone.draw();
 	cam.end();
 }
 
