@@ -56,8 +56,11 @@ public:
 	ofLight light;
 	ofCamera cam;
 	ofRectangle camViewport;
+	ofBoxPrimitive leftEyeParentBox;
+	ofBoxPrimitive rightEyeParentBox;
 	ofConePrimitive leftEyeCone;
 	ofConePrimitive rightEyeCone;
+	ofVec3f eyeUpVector;
 
 	ofSerial serial;
 

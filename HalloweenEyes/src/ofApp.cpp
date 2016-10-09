@@ -47,16 +47,19 @@ void ofApp::setup() {
 	//Default location for target box
 	targetBox.set(50);
 	targetBox.setPosition(0, 0, 0);
+	leftEyeParentBox.set(10);
+	rightEyeParentBox.set(10);
 
 	//Set up left and right eyes
+	eyeUpVector.set(0.0, 1.0, 0.0);
 	leftEyeCone.set(25, 25, 5, 2);
 	rightEyeCone.set(25, 25, 5, 2);
-	leftEyeCone.rotate(90, 1.0, 0.0, 0.0);
-	rightEyeCone.rotate(90, 1.0, 0.0, 0.0);
-
-	leftEyeCone.setPosition(-100, 0, 100);
-	rightEyeCone.setPosition(100, 0, 100);
-
+	leftEyeParentBox.setPosition(-100, 0, 100);
+	rightEyeParentBox.setPosition(100, 0, 100);
+	leftEyeCone.setParent(leftEyeParentBox);
+	rightEyeCone.setParent(rightEyeParentBox);
+	leftEyeCone.rotate(90, 1.0, 0, 0);
+	rightEyeCone.rotate(90, 1.0, 0, 0);
 
 }
 
@@ -113,6 +116,20 @@ void ofApp::update() {
 			newBlob = true;
 			blob = contourFinder.blobs[0];
 		}
+
+		//Update target box location
+		int targetBoxX = 128 - mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254);
+		int targetBoxY = 128 - mapInt((int)blob.centroid.y, 0, kinect.width, 0, 254);
+		int targetBoxZ = -1 * (255 - frontThreshold);
+
+		//ofLogNotice("Mapped Z: ") << targetBoxZ;
+
+		//Calculate Lookat for preview draw
+		targetBox.setPosition(targetBoxX, targetBoxY, targetBoxZ);
+
+		leftEyeParentBox.lookAt(targetBox, eyeUpVector);
+		rightEyeParentBox.lookAt(targetBox, eyeUpVector);
+
 	}
 
 	//send new info to arduino
@@ -166,6 +183,7 @@ void ofApp::update() {
 		}
 
 	}
+
 }
 
 //--------------------------------------------------------------
