@@ -110,23 +110,23 @@ void ofApp::update() {
 		//We will send 1 initByte of 255 and 4 bytes, 0-254 for each servo (5 bytes total)
 		//InitByte
 		unsigned char initByte = 255;
-		ofLogNotice() << blob.centroid.x;
+		//ofLogNotice() << blob.centroid.x;
 		//Byte0: left eye x
 		unsigned char byte0 = mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254);
 		
 		//Byte1: left eye y
-		unsigned char byte1 = 0;
-		
+		unsigned char byte1 = mapInt((int)blob.centroid.y, 0, kinect.height, 0, 254);
+
 		//Byte2: right eye x
 		unsigned char byte2 = mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254);
 		
 		//Byte3: right eye y
-		unsigned char byte3 = 0;
+		unsigned char byte3 = mapInt((int)blob.centroid.y, 0, kinect.height, 0, 254);
 
 		//Write bytes
 		unsigned char buf[5] = { initByte, byte0, byte1, byte2, byte3};
 		serial.writeBytes(&buf[0], 5);
-		ofLogNotice("ofApp") << (int)byte0;
+		//ofLogNotice("ofApp") << (int)byte0;
 
 		//Log out info from Arduino
 		static string str;
