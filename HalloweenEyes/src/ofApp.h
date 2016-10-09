@@ -24,7 +24,7 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	const int RENDER_X_OFFSET = 300;
+	const int RENDER_X_OFFSET = 420;
 	const int RENDER_Y_OFFSET = 10;
 
 
@@ -53,6 +53,7 @@ public:
 	ofBoxPrimitive targetBox;
 	ofLight light;
 	ofCamera cam;
+	ofRectangle camViewport;
 	ofSerial serial;
 
 	

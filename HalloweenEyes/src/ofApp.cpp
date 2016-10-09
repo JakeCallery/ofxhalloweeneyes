@@ -33,13 +33,14 @@ void ofApp::setup() {
 	grayThreshFar.allocate(kinect.width, kinect.height);
 
 	//set up openFrameworks target framerate
-	ofSetFrameRate(60);
+	ofSetFrameRate(30);
 
 	// reset tilt
 	angle = 0;
 	kinect.setCameraTiltAngle(angle);
 
 	//setup 3d render
+	camViewport.set(RENDER_X_OFFSET, RENDER_Y_OFFSET, 400, 300);
 	targetBox.set(50);
 	cam.setPosition(0.0, 1000, 0.0);
 	cam.rotate(-90.0, 1.0, 0.0, 0.0);
@@ -195,10 +196,9 @@ void ofApp::draw() {
 	ofDrawBitmapString(reportStream.str(), 20, 652);
 
 	//Draw 3D render
-	cam.begin();
+	cam.begin(camViewport);
 	ofSetColor(255, 0, 0, 255);
 	targetBox.draw();
-	targetBox.drawAxes(200);
 	cam.end();
 }
 
