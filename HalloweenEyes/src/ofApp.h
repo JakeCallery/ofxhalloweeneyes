@@ -62,6 +62,14 @@ public:
 	ofConePrimitive rightEyeCone;
 	ofVec3f eyeUpVector;
 
+	int targetXOffset = 0;
+	int targetYOffset = 0;
+	int targetZOffset = 0;
+
+	float targetXScale = 1.0;
+	float targetYScale = 1.0;
+	float targetZScale = 1.0;
+
 	ofSerial serial;
 
 	

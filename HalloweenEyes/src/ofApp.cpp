@@ -50,6 +50,15 @@ void ofApp::setup() {
 	leftEyeParentBox.set(10);
 	rightEyeParentBox.set(10);
 
+	//Set target offsets
+	targetXOffset = 0;
+	targetYOffset = 0;
+	targetZOffset = -200;
+
+	targetXScale = 1.0;
+	targetYScale = 1.0;
+	targetZScale = 2.0;
+
 	//Set up left and right eyes
 	eyeUpVector.set(0.0, 1.0, 0.0);
 	leftEyeCone.set(25, 25, 5, 2);
@@ -118,9 +127,9 @@ void ofApp::update() {
 		}
 
 		//Update target box location
-		int targetBoxX = 128 - mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254);
-		int targetBoxY = 128 - mapInt((int)blob.centroid.y, 0, kinect.width, 0, 254);
-		int targetBoxZ = -1 * (255 - frontThreshold);
+		int targetBoxX = ((128 - mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254)) * targetXScale) + targetXOffset;
+		int targetBoxY = ((128 - mapInt((int)blob.centroid.y, 0, kinect.width, 0, 254)) * targetYScale) + targetYOffset;
+		int targetBoxZ = (-1 * (255 - frontThreshold) * targetZScale) + targetZOffset;
 
 		//ofLogNotice("Mapped Z: ") << targetBoxZ;
 
