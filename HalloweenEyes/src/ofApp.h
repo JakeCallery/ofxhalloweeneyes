@@ -29,6 +29,10 @@ public:
 	const int RENDER_WIDTH = 400;
 	const int RENDER_HEIGHT = 300;
 
+	const int LH_SERVO_OFFSET = 0;
+	const int LV_SERVO_OFFSET = 0;
+	const int RH_SERVO_OFFSET = 0;
+	const int RV_SERVO_OFFSET = 0;
 
 	int mapInt(int x, int in_min, int in_max, int out_min, int out_max);
 

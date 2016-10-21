@@ -140,67 +140,68 @@ void ofApp::update() {
 		leftEyeParentBox.lookAt(targetBox, eyeUpVector);
 		rightEyeParentBox.lookAt(targetBox, eyeUpVector);
 
-	}
+	
 
-	//send new info to arduino
-	if (serial.isInitialized() && newBlob) {
+		//send new info to arduino
+		if (serial.isInitialized() && newBlob) {
 
-		//Calculate horizontal / vertial servo positions
-		//left eye
-		ofVec3f leftEyeOrientation = leftEyeParentBox.getOrientationEuler();
-		ofLogNotice("Left Vect: ") << leftEyeOrientation;
+			//Calculate horizontal / vertial servo positions
+			//left eye
+			ofVec3f leftEyeOrientation = leftEyeParentBox.getOrientationEuler();
+			//ofLogNotice("Left Vect: ") << leftEyeOrientation;
 
-		unsigned char leftEyeHorizontal = mapInt(leftEyeOrientation.y, -90.0, 90.0, 0, 254);
-		unsigned char leftEyeVertical = mapInt(leftEyeOrientation.x, -90.0, 90.0, 0, 254);
+			unsigned char leftEyeHorizontal = mapInt(leftEyeOrientation.y * -1.0, -90.0, 90.0, 0, 254) + LH_SERVO_OFFSET;
+			unsigned char leftEyeVertical = mapInt(leftEyeOrientation.x, -90.0, 90.0, 0, 254) + LV_SERVO_OFFSET;
 
-		//right eye
-		ofVec3f rightEyeOrientation = rightEyeParentBox.getOrientationEuler();
-		unsigned char rightEyeHorizontal = mapInt(rightEyeOrientation.y, -90.0, 90.0, 0, 254);
-		unsigned char rightEyeVertical = mapInt(rightEyeOrientation.x, -90.0, 90.0, 0, 254);
+			//right eye
+			ofVec3f rightEyeOrientation = rightEyeParentBox.getOrientationEuler();
+			unsigned char rightEyeHorizontal = mapInt(rightEyeOrientation.y, -90.0, 90.0, 0, 254) + RH_SERVO_OFFSET;
+			unsigned char rightEyeVertical = mapInt(rightEyeOrientation.x, -90.0, 90.0, 0, 254) + RV_SERVO_OFFSET;
 
-		ofLogNotice("Left Eye: ") << (unsigned int)leftEyeHorizontal << "," << (unsigned int)leftEyeVertical;
-		ofLogNotice("Right Eye: ") << (unsigned int)rightEyeHorizontal << "," << (unsigned int)rightEyeVertical;
+			ofLogNotice("Horiz Rotation: ") << leftEyeOrientation.y;
+			ofLogNotice("Left Eye: ") << (unsigned int)leftEyeHorizontal << "," << (unsigned int)leftEyeVertical;
+			//ofLogNotice("Right Eye: ") << (unsigned int)rightEyeHorizontal << "," << (unsigned int)rightEyeVertical;
 
 
-		//We will send 1 initByte of 255 and 4 bytes, 0-254 for each servo (5 bytes total)
-		//InitByte
-		unsigned char initByte = 255;
-		//ofLogNotice() << blob.centroid.x;
+			//We will send 1 initByte of 255 and 4 bytes, 0-254 for each servo (5 bytes total)
+			//InitByte
+			unsigned char initByte = 255;
+			//ofLogNotice() << blob.centroid.x;
 		
-		//Byte0: left eye x
-		unsigned char byte0 = leftEyeHorizontal;
+			//Byte0: left eye x
+			unsigned char byte0 = leftEyeHorizontal;
 		
-		//Byte1: left eye y
-		unsigned char byte1 = leftEyeVertical;
+			//Byte1: left eye y
+			unsigned char byte1 = leftEyeVertical;
 
-		//Byte2: right eye x
-		unsigned char byte2 = rightEyeHorizontal;
+			//Byte2: right eye x
+			unsigned char byte2 = rightEyeHorizontal;
 		
-		//Byte3: right eye y
-		unsigned char byte3 = rightEyeVertical;
+			//Byte3: right eye y
+			unsigned char byte3 = rightEyeVertical;
 
-		//Write bytes
-		unsigned char buf[5] = { initByte, byte0, byte1, byte2, byte3};
-		serial.writeBytes(&buf[0], 5);
-		//ofLogNotice("ofApp") << (int)byte0;
+			//Write bytes
+			unsigned char buf[5] = { initByte, byte0, byte1, byte2, byte3};
+			serial.writeBytes(&buf[0], 5);
+			//ofLogNotice("ofApp") << (int)byte0;
 
-		//Log out info from Arduino
-		static string str;
-		stringstream ss;
-		char ch;
-		int readLimit = 1000;
-		bool anyBytes = false;
-		while ((ch = serial.readByte()) > 0 && readLimit-- > 0) {
-			ss << ch;
-			anyBytes = true;
+			//Log out info from Arduino
+			static string str;
+			stringstream ss;
+			char ch;
+			int readLimit = 1000;
+			bool anyBytes = false;
+			while ((ch = serial.readByte()) > 0 && readLimit-- > 0) {
+				ss << ch;
+				anyBytes = true;
+			}
+
+			if (anyBytes) {
+				str += ss.str();
+				ofLog(OF_LOG_NOTICE, str);
+				anyBytes = false;
+			}
 		}
-
-		if (anyBytes) {
-			str += ss.str();
-			ofLog(OF_LOG_NOTICE, str);
-			anyBytes = false;
-		}
-
 	}
 
 }
