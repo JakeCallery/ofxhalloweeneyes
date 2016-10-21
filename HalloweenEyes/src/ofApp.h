@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp {
 
@@ -45,6 +46,10 @@ public:
 	ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
 
 	ofxCvContourFinder contourFinder;
+
+	ofxPanel gui;
+	ofxFloatSlider leftEyeHorizLocEyeSlider;
+	ofxFloatSlider rightEyeHorizLocEyeSlider;
 
 	bool bThreshWithOpenCV;
 

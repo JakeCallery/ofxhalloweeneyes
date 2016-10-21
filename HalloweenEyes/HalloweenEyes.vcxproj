@@ -95,7 +95,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\src;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;..\..\..\addons\ofxGui\src;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\ippicv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\src;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;..\..\..\addons\ofxGui\src;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\ippicv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\src;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -115,33 +117,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;
-..\..\..\addons\ofxOpenCv\src;
-..\..\..\addons\ofxOpenCv\libs\ippicv\include;
-..\..\..\addons\ofxOpenCv\libs\opencv\include;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\ippicv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\src;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -149,7 +127,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -161,7 +138,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\src;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;..\..\..\addons\ofxGui\src;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\ippicv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\src;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows;..\..\..\addons\ofxKinect\libs\libfreenect\platform\windows\libusb10emu\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;..\..\..\addons\ofxGui\src;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\ippicv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\src;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -184,33 +163,9 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;
-..\..\..\addons\ofxOpenCv\src;
-..\..\..\addons\ofxOpenCv\libs\ippicv\include;
-..\..\..\addons\ofxOpenCv\libs\opencv\include;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;
-..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxKinect\src;..\..\..\addons\ofxKinect\src\extra;..\..\..\addons\ofxKinect\libs\libfreenect\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include;..\..\..\addons\ofxKinect\libs\libusb-1.0\include\libusb-1.0;..\..\..\addons\ofxKinect\libs\libusb-win32\include;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\ippicv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\hal;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgcodecs;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\shape;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videoio;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\src;
+E:\2016Indie\openFrameworks\addons\ofxXmlSettings\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -220,7 +175,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -255,6 +209,10 @@
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvHaarFinder.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
@@ -505,6 +463,8 @@
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.h" />
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.h" />
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxOpenCv.h" />
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
     <ClInclude Include="src\ofApp.h" />
   </ItemGroup>
   <ItemGroup>

@@ -71,6 +71,11 @@ void ofApp::setup() {
 	leftEyeCone.rotate(90, 1.0, 0, 0);
 	rightEyeCone.rotate(90, 1.0, 0, 0);
 
+	//Set up GUI
+	gui.setup();
+	gui.add(leftEyeHorizLocEyeSlider.setup("LEH Slider", -100.0, -500.0, 500.0));
+	gui.add(rightEyeHorizLocEyeSlider.setup("REH Slider", 100.0, -500.0, 500.0));
+
 }
 
 //--------------------------------------------------------------
@@ -253,6 +258,9 @@ void ofApp::draw() {
 	leftEyeCone.draw();
 	rightEyeCone.draw();
 	cam.end();
+
+	//Draw GUI
+	gui.draw();
 }
 
 //--------------------------------------------------------------
