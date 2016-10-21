@@ -47,9 +47,18 @@ public:
 
 	ofxCvContourFinder contourFinder;
 
-	ofxPanel gui;
+	ofxPanel eyePanel;
+	ofxPanel targetPanel;
+
 	ofxFloatSlider leftEyeHorizLocEyeSlider;
 	ofxFloatSlider rightEyeHorizLocEyeSlider;
+	
+	ofxFloatSlider targetLocScaleXSlider;
+	ofxFloatSlider targetLocScaleYSlider;
+	ofxFloatSlider targetLocScaleZSlider;
+	ofxFloatSlider targetLocOffsetXSlider;
+	ofxFloatSlider targetLocOffsetYSlider;
+	ofxFloatSlider targetLocOffsetZSlider;
 
 	bool bThreshWithOpenCV;
 
@@ -78,6 +87,15 @@ public:
 	float targetXScale = 1.0;
 	float targetYScale = 1.0;
 	float targetZScale = 1.0;
+
+	ofVec3f leftEyeDefaultLoc;
+	ofVec3f rightEyeDefaultLoc;
+
+	ofVec3f leftEyeLocOffset;
+	ofVec3f rightEyeLocOffset;
+
+	ofVec3f targetBoxLocScale;
+	ofVec3f targetBoxLocOffset;
 
 	ofSerial serial;
 

@@ -51,30 +51,39 @@ void ofApp::setup() {
 	leftEyeParentBox.set(10);
 	rightEyeParentBox.set(10);
 
-	//Set target offsets
-	targetXOffset = 0;
-	targetYOffset = 0;
-	targetZOffset = -50;
+	//Set target offsets and location scale
+	targetBoxLocOffset.set(0.0, 0.0, 10.0);
+	targetBoxLocScale.set(1.0, 1.0, 1.0);
 
-	targetXScale = 1.0;
-	targetYScale = 1.0;
-	targetZScale = 2.0;
+	//Set up Eye physical -> virtual offsets
+	leftEyeDefaultLoc.set(-100.0, 0.0, 100.0);
+	rightEyeDefaultLoc.set(100.0, 0.0, 100.0);
+	leftEyeLocOffset.set(0.0, 0.0, 0.0);
+	rightEyeLocOffset.set(0.0, 0.0, 0.0);
 
 	//Set up left and right eyes
 	eyeUpVector.set(0.0, 1.0, 0.0);
 	leftEyeCone.set(25, 25, 5, 2);
 	rightEyeCone.set(25, 25, 5, 2);
-	leftEyeParentBox.setPosition(-100, 0, 100);
-	rightEyeParentBox.setPosition(100, 0, 100);
+	leftEyeParentBox.setPosition(leftEyeDefaultLoc);
+	rightEyeParentBox.setPosition(rightEyeDefaultLoc);
 	leftEyeCone.setParent(leftEyeParentBox);
 	rightEyeCone.setParent(rightEyeParentBox);
 	leftEyeCone.rotate(90, 1.0, 0, 0);
 	rightEyeCone.rotate(90, 1.0, 0, 0);
 
 	//Set up GUI
-	gui.setup();
-	gui.add(leftEyeHorizLocEyeSlider.setup("LEH Slider", -100.0, -500.0, 500.0));
-	gui.add(rightEyeHorizLocEyeSlider.setup("REH Slider", 100.0, -500.0, 500.0));
+	eyePanel.setup();
+	eyePanel.add(leftEyeHorizLocEyeSlider.setup("LEH Slider", 0, -500.0, 500.0));
+	eyePanel.add(rightEyeHorizLocEyeSlider.setup("REH Slider", 0, -500.0, 500.0));
+
+	targetPanel.setup();
+	targetPanel.add(targetLocScaleXSlider.setup("Target Scale X", targetBoxLocScale.x, 0.1, 10));
+	targetPanel.add(targetLocScaleYSlider.setup("Target Scale Y", targetBoxLocScale.y, 0.1, 10));
+	targetPanel.add(targetLocScaleZSlider.setup("Target Scale Z", targetBoxLocScale.z, 0.1, 10));
+	targetPanel.add(targetLocOffsetXSlider.setup("Taget LocOffset X", targetBoxLocOffset.x, -10, 20));
+	targetPanel.add(targetLocOffsetYSlider.setup("Taget LocOffset Y", targetBoxLocOffset.y, -10, 20));
+	targetPanel.add(targetLocOffsetZSlider.setup("Taget LocOffset Z", targetBoxLocOffset.z, 0, 20));
 
 }
 
@@ -90,6 +99,18 @@ void ofApp::update() {
 
 	// there is a new frame and we are connected
 	if (kinect.isFrameNew()) {
+
+		//Grab Eye Locations Slider Values
+		leftEyeLocOffset.set(leftEyeHorizLocEyeSlider, leftEyeLocOffset.y, leftEyeLocOffset.z);
+		rightEyeLocOffset.set(rightEyeHorizLocEyeSlider, rightEyeLocOffset.y, rightEyeLocOffset.z);
+
+		//Grab Target location/scale slider values
+		targetBoxLocOffset.set(targetLocOffsetXSlider, targetLocOffsetYSlider, targetLocOffsetZSlider);
+		targetBoxLocScale.set(targetLocScaleXSlider, targetLocScaleYSlider, targetLocOffsetZSlider);
+
+		//Set up virtual eye locations
+		leftEyeParentBox.setPosition(leftEyeDefaultLoc + leftEyeLocOffset);
+		rightEyeParentBox.setPosition(rightEyeDefaultLoc + rightEyeLocOffset);
 
 		// load grayscale depth image from the kinect source
 		grayImage.setFromPixels(kinect.getDepthPixels(), kinect.width, kinect.height);
@@ -133,9 +154,9 @@ void ofApp::update() {
 		}
 
 		//Update target box location
-		int targetBoxX = ((128 - mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254)) * targetXScale) + targetXOffset;
-		int targetBoxY = ((128 - mapInt((int)blob.centroid.y, 0, kinect.width, 0, 254)) * targetYScale) + targetYOffset;
-		int targetBoxZ = (-1 * (255 - frontThreshold) * targetZScale) + targetZOffset;
+		int targetBoxX = ((128 - mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254)) * targetBoxLocScale.x) + targetBoxLocOffset.x;
+		int targetBoxY = ((128 - mapInt((int)blob.centroid.y, 0, kinect.width, 0, 254)) * targetBoxLocScale.y) + targetBoxLocOffset.y;
+		int targetBoxZ = (-1 * (255 - frontThreshold) * targetBoxLocScale.z) + targetBoxLocOffset.z;
 
 		//ofLogNotice("Mapped Z: ") << targetBoxZ;
 
@@ -153,9 +174,7 @@ void ofApp::update() {
 			//Calculate horizontal / vertial servo positions
 			//left eye
 			ofVec3f leftEyeOrientation = leftEyeParentBox.getOrientationEuler();
-			//ofLogNotice("Left Vect: ") << leftEyeOrientation;
-
-			unsigned char leftEyeHorizontal = mapInt(leftEyeOrientation.y * -1.0, -90.0, 90.0, 0, 254) + LH_SERVO_OFFSET;
+			unsigned char leftEyeHorizontal = (mapInt(leftEyeOrientation.y, -90.0, 90.0, 0, 254) + LH_SERVO_OFFSET);
 			unsigned char leftEyeVertical = mapInt(leftEyeOrientation.x, -90.0, 90.0, 0, 254) + LV_SERVO_OFFSET;
 
 			//right eye
@@ -260,7 +279,8 @@ void ofApp::draw() {
 	cam.end();
 
 	//Draw GUI
-	gui.draw();
+	eyePanel.draw();
+	targetPanel.draw();
 }
 
 //--------------------------------------------------------------
