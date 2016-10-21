@@ -56,8 +56,8 @@ void ofApp::setup() {
 	targetBoxLocScale.set(1.0, 1.0, 1.0);
 
 	//Set up Eye physical -> virtual offsets
-	leftEyeDefaultLoc.set(-100.0, 0.0, 100.0);
-	rightEyeDefaultLoc.set(100.0, 0.0, 100.0);
+	leftEyeDefaultLoc.set(-500, 0.0, 100.0);
+	rightEyeDefaultLoc.set(500, 0.0, 100.0);
 	leftEyeLocOffset.set(0.0, 0.0, 0.0);
 	rightEyeLocOffset.set(0.0, 0.0, 0.0);
 
@@ -73,11 +73,13 @@ void ofApp::setup() {
 	rightEyeCone.rotate(90, 1.0, 0, 0);
 
 	//Set up GUI
-	eyePanel.setup();
-	eyePanel.add(leftEyeHorizLocEyeSlider.setup("LEH Slider", 0, -500.0, 500.0));
-	eyePanel.add(rightEyeHorizLocEyeSlider.setup("REH Slider", 0, -500.0, 500.0));
+	eyePanel.setup("Eye Panel");
+	eyePanel.setPosition(420, 320);
+	eyePanel.add(leftEyeHorizLocEyeSlider.setup("LEH Slider", 0, -100.0, 100));
+	eyePanel.add(rightEyeHorizLocEyeSlider.setup("REH Slider", 0, -100.0, 100.0));
 
-	targetPanel.setup();
+	targetPanel.setup("Target Panel");
+	targetPanel.setPosition(630, 320);
 	targetPanel.add(targetLocScaleXSlider.setup("Target Scale X", targetBoxLocScale.x, 0.1, 10));
 	targetPanel.add(targetLocScaleYSlider.setup("Target Scale Y", targetBoxLocScale.y, 0.1, 10));
 	targetPanel.add(targetLocScaleZSlider.setup("Target Scale Z", targetBoxLocScale.z, 0.1, 10));
@@ -245,22 +247,12 @@ void ofApp::draw() {
 	ofSetColor(255, 255, 255);
 	stringstream reportStream;
 
-	if (kinect.hasAccelControl()) {
-		reportStream << "accel is: " << ofToString(kinect.getMksAccel().x, 2) << " / "
-			<< ofToString(kinect.getMksAccel().y, 2) << " / "
-			<< ofToString(kinect.getMksAccel().z, 2) << endl;
-	}
-	else {
-		reportStream << "Note: this is a newer Xbox Kinect or Kinect For Windows device," << endl
-			<< "motor / led / accel controls are not currently supported" << endl << endl;
-	}
-
-	reportStream << "press p to switch between images and point cloud, rotate the point cloud with the mouse" << endl
-		<< "threshDepth: " << threshDepth << endl
+	reportStream << "threshDepth: " << threshDepth << endl
 		<< "set near threshold " << frontThreshold << " (press: + -)" << endl
 		<< "set far threshold " << backThreshold << endl 
 		<< " num blobs found " << contourFinder.nBlobs
 		<< ", fps: " << ofGetFrameRate() << endl
+		<< "mouse x,y: " << ofGetMouseX() << ", " << ofGetMouseY()
 		<< "press c to close the connection and o to open it again, connection is: " << kinect.isConnected() << endl;
 
 	if (kinect.hasCamTiltControl()) {
