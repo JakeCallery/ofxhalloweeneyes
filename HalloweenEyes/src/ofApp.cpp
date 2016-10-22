@@ -52,12 +52,12 @@ void ofApp::setup() {
 	rightEyeParentBox.set(10);
 
 	//Set target offsets and location scale
-	targetBoxLocOffset.set(0.0, 0.0, 10.0);
-	targetBoxLocScale.set(1.0, 1.0, 1.0);
+	targetBoxLocOffset.set(0.0, -12, 10.0);
+	targetBoxLocScale.set(3.0, 1.2, 1.0);
 
 	//Set up Eye physical -> virtual offsets
-	leftEyeDefaultLoc.set(-500, 0.0, 100.0);
-	rightEyeDefaultLoc.set(500, 0.0, 100.0);
+	leftEyeDefaultLoc.set(-10, 0.0, 100.0);
+	rightEyeDefaultLoc.set(10, 0.0, 100.0);
 	leftEyeLocOffset.set(0.0, 0.0, 0.0);
 	rightEyeLocOffset.set(0.0, 0.0, 0.0);
 
@@ -84,7 +84,7 @@ void ofApp::setup() {
 	targetPanel.add(targetLocScaleYSlider.setup("Target Scale Y", targetBoxLocScale.y, 0.1, 10));
 	targetPanel.add(targetLocScaleZSlider.setup("Target Scale Z", targetBoxLocScale.z, 0.1, 10));
 	targetPanel.add(targetLocOffsetXSlider.setup("Taget LocOffset X", targetBoxLocOffset.x, -10, 20));
-	targetPanel.add(targetLocOffsetYSlider.setup("Taget LocOffset Y", targetBoxLocOffset.y, -10, 20));
+	targetPanel.add(targetLocOffsetYSlider.setup("Taget LocOffset Y", targetBoxLocOffset.y, -50, 50));
 	targetPanel.add(targetLocOffsetZSlider.setup("Taget LocOffset Z", targetBoxLocOffset.z, 0, 20));
 
 }
@@ -176,13 +176,13 @@ void ofApp::update() {
 			//Calculate horizontal / vertial servo positions
 			//left eye
 			ofVec3f leftEyeOrientation = leftEyeParentBox.getOrientationEuler();
-			unsigned char leftEyeHorizontal = (mapInt(leftEyeOrientation.y, -90.0, 90.0, 0, 254) + LH_SERVO_OFFSET);
-			unsigned char leftEyeVertical = mapInt(leftEyeOrientation.x, -90.0, 90.0, 0, 254) + LV_SERVO_OFFSET;
+			unsigned char leftEyeHorizontal = 254 - round(ofMap(leftEyeOrientation.y, -90.0, 90.0, 0, 254, true));
+			unsigned char leftEyeVertical = round(ofMap(leftEyeOrientation.x, -90.0, 90.0, 0, 254, true));
 
 			//right eye
 			ofVec3f rightEyeOrientation = rightEyeParentBox.getOrientationEuler();
-			unsigned char rightEyeHorizontal = mapInt(rightEyeOrientation.y, -90.0, 90.0, 0, 254) + RH_SERVO_OFFSET;
-			unsigned char rightEyeVertical = mapInt(rightEyeOrientation.x, -90.0, 90.0, 0, 254) + RV_SERVO_OFFSET;
+			unsigned char rightEyeHorizontal = ofMap(rightEyeOrientation.y, -90.0, 90.0, 0, 254, true);
+			unsigned char rightEyeVertical = ofMap(rightEyeOrientation.x, -90.0, 90.0, 0, 254, true);
 
 			ofLogNotice("Horiz Rotation: ") << leftEyeOrientation.y;
 			ofLogNotice("Left Eye: ") << (unsigned int)leftEyeHorizontal << "," << (unsigned int)leftEyeVertical;
@@ -400,9 +400,4 @@ void ofApp::exit() {
 	kinect.setCameraTiltAngle(0); // zero the tilt on exit
 	kinect.close();
 
-}
-
-//--------------------------------------------------------------
-int ofApp::mapInt(int x, int in_min, int in_max, int out_min, int out_max) {
-	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
