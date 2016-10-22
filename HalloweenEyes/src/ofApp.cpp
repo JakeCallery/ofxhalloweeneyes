@@ -156,8 +156,8 @@ void ofApp::update() {
 		}
 
 		//Update target box location
-		int targetBoxX = ((128 - mapInt((int)blob.centroid.x, 0, kinect.width, 0, 254)) * targetBoxLocScale.x) + targetBoxLocOffset.x;
-		int targetBoxY = ((128 - mapInt((int)blob.centroid.y, 0, kinect.width, 0, 254)) * targetBoxLocScale.y) + targetBoxLocOffset.y;
+		int targetBoxX = ((128 - ofMap((int)blob.centroid.x, 0, kinect.width, 0, 254)) * targetBoxLocScale.x) + targetBoxLocOffset.x;
+		int targetBoxY = ((128 - ofMap((int)blob.centroid.y, 0, kinect.width, 0, 254)) * targetBoxLocScale.y) + targetBoxLocOffset.y;
 		int targetBoxZ = (-1 * (255 - frontThreshold) * targetBoxLocScale.z) + targetBoxLocOffset.z;
 
 		//ofLogNotice("Mapped Z: ") << targetBoxZ;
