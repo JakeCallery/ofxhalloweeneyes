@@ -181,11 +181,11 @@ void ofApp::update() {
 
 			//right eye
 			ofVec3f rightEyeOrientation = rightEyeParentBox.getOrientationEuler();
-			unsigned char rightEyeHorizontal = ofMap(rightEyeOrientation.y, -90.0, 90.0, 0, 254, true);
-			unsigned char rightEyeVertical = ofMap(rightEyeOrientation.x, -90.0, 90.0, 0, 254, true);
+			unsigned char rightEyeHorizontal = 254 - ofMap(rightEyeOrientation.y, -90.0, 90.0, 0, 254, true);
+			unsigned char rightEyeVertical = 254 - ofMap(rightEyeOrientation.x, -90.0, 90.0, 0, 254, true);
 
-			ofLogNotice("Horiz Rotation: ") << leftEyeOrientation.y;
-			ofLogNotice("Left Eye: ") << (unsigned int)leftEyeHorizontal << "," << (unsigned int)leftEyeVertical;
+			//ofLogNotice("Horiz Rotation: ") << leftEyeOrientation.y;
+			//ofLogNotice("Left Eye: ") << (unsigned int)leftEyeHorizontal << "," << (unsigned int)leftEyeVertical;
 			//ofLogNotice("Right Eye: ") << (unsigned int)rightEyeHorizontal << "," << (unsigned int)rightEyeVertical;
 
 
