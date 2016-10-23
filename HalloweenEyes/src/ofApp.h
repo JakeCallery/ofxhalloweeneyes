@@ -47,12 +47,21 @@ public:
 
 	ofxCvContourFinder contourFinder;
 
-	ofxPanel eyePanel;
+	ofxPanel leftEyePanel;
+	ofxPanel rightEyePanel;
 	ofxPanel targetPanel;
 
-	ofxFloatSlider leftEyeHorizLocEyeSlider;
-	ofxFloatSlider rightEyeHorizLocEyeSlider;
+	//Left Eye Sliders
+	ofxFloatSlider leftEyeHorizLocSlider;
+	ofxFloatSlider leftEyeRotXOffsetSlider;
+	ofxFloatSlider leftEyeRotYOffsetSlider;
 	
+	//Right Eye Sliders
+	ofxFloatSlider rightEyeHorizLocSlider;
+	ofxFloatSlider rightEyeRotXOffsetSlider;
+	ofxFloatSlider rightEyeRotYOffsetSlider;
+
+	//Target Sliders
 	ofxFloatSlider targetLocScaleXSlider;
 	ofxFloatSlider targetLocScaleYSlider;
 	ofxFloatSlider targetLocScaleZSlider;

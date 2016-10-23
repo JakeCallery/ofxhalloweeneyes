@@ -73,19 +73,26 @@ void ofApp::setup() {
 	rightEyeCone.rotate(90, 1.0, 0, 0);
 
 	//Set up GUI
-	eyePanel.setup("Eye Panel");
-	eyePanel.setPosition(420, 320);
-	eyePanel.add(leftEyeHorizLocEyeSlider.setup("LEH Slider", 0, -100.0, 100));
-	eyePanel.add(rightEyeHorizLocEyeSlider.setup("REH Slider", 0, -100.0, 100.0));
+	leftEyePanel.setup("LeftEyePanel");
+	leftEyePanel.setPosition(420, 320);
+	leftEyePanel.add(leftEyeHorizLocSlider.setup("Left Eye Horiz Loc", 0, -200, 200));
+	leftEyePanel.add(leftEyeRotXOffsetSlider.setup("Left Eye X Rot Offset", 0, -90, 90));
+	leftEyePanel.add(leftEyeRotYOffsetSlider.setup("Left Eye Y Rot Offset", 0, -90, 90));
+
+	rightEyePanel.setup("RightEyePanel");
+	rightEyePanel.setPosition(630, 320);
+	rightEyePanel.add(rightEyeHorizLocSlider.setup("Right Eye Horiz Loc", 0, -200.0, 200.0));
+	rightEyePanel.add(rightEyeRotXOffsetSlider.setup("Right Eye X Rot Offset", 0, -90, 90));
+	rightEyePanel.add(rightEyeRotYOffsetSlider.setup("Right Eye Y Rot Offset", 0, -90, 90));
 
 	targetPanel.setup("Target Panel");
-	targetPanel.setPosition(630, 320);
-	targetPanel.add(targetLocScaleXSlider.setup("Target Scale X", targetBoxLocScale.x, 0.1, 10));
-	targetPanel.add(targetLocScaleYSlider.setup("Target Scale Y", targetBoxLocScale.y, 0.1, 10));
-	targetPanel.add(targetLocScaleZSlider.setup("Target Scale Z", targetBoxLocScale.z, 0.1, 10));
-	targetPanel.add(targetLocOffsetXSlider.setup("Taget LocOffset X", targetBoxLocOffset.x, -10, 20));
-	targetPanel.add(targetLocOffsetYSlider.setup("Taget LocOffset Y", targetBoxLocOffset.y, -50, 50));
-	targetPanel.add(targetLocOffsetZSlider.setup("Taget LocOffset Z", targetBoxLocOffset.z, 0, 20));
+	targetPanel.setPosition(840, 320);
+	targetPanel.add(targetLocScaleXSlider.setup("Target Loc Scale X", targetBoxLocScale.x, 0.1, 10));
+	targetPanel.add(targetLocScaleYSlider.setup("Target Loc Scale Y", targetBoxLocScale.y, 0.1, 10));
+	targetPanel.add(targetLocScaleZSlider.setup("Target Loc Scale Z", targetBoxLocScale.z, 0.1, 10));
+	targetPanel.add(targetLocOffsetXSlider.setup("Taget Loc Offset X", targetBoxLocOffset.x, -10, 20));
+	targetPanel.add(targetLocOffsetYSlider.setup("Taget Loc Offset Y", targetBoxLocOffset.y, -50, 50));
+	targetPanel.add(targetLocOffsetZSlider.setup("Taget Loc Offset Z", targetBoxLocOffset.z, 0, 20));
 
 }
 
@@ -103,8 +110,8 @@ void ofApp::update() {
 	if (kinect.isFrameNew()) {
 
 		//Grab Eye Locations Slider Values
-		leftEyeLocOffset.set(leftEyeHorizLocEyeSlider, leftEyeLocOffset.y, leftEyeLocOffset.z);
-		rightEyeLocOffset.set(rightEyeHorizLocEyeSlider, rightEyeLocOffset.y, rightEyeLocOffset.z);
+		leftEyeLocOffset.set(leftEyeHorizLocSlider, leftEyeLocOffset.y, leftEyeLocOffset.z);
+		rightEyeLocOffset.set(rightEyeHorizLocSlider, rightEyeLocOffset.y, rightEyeLocOffset.z);
 
 		//Grab Target location/scale slider values
 		targetBoxLocOffset.set(targetLocOffsetXSlider, targetLocOffsetYSlider, targetLocOffsetZSlider);
@@ -271,7 +278,8 @@ void ofApp::draw() {
 	cam.end();
 
 	//Draw GUI
-	eyePanel.draw();
+	leftEyePanel.draw();
+	rightEyePanel.draw();
 	targetPanel.draw();
 }
 
