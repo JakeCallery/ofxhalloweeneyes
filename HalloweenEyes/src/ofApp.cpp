@@ -76,14 +76,14 @@ void ofApp::setup() {
 	leftEyePanel.setup("LeftEyePanel");
 	leftEyePanel.setPosition(420, 320);
 	leftEyePanel.add(leftEyeHorizLocSlider.setup("Left Eye Horiz Loc", 0, -200, 200));
-	leftEyePanel.add(leftEyeRotXOffsetSlider.setup("Left Eye X Rot Offset", 0, -90, 90));
-	leftEyePanel.add(leftEyeRotYOffsetSlider.setup("Left Eye Y Rot Offset", 0, -90, 90));
+	leftEyePanel.add(leftEyeRotXOffsetSlider.setup("Left Eye X Rot", 0, -90, 90));
+	leftEyePanel.add(leftEyeRotYOffsetSlider.setup("Left Eye Y Rot ", 0, -90, 90));
 
 	rightEyePanel.setup("RightEyePanel");
 	rightEyePanel.setPosition(630, 320);
 	rightEyePanel.add(rightEyeHorizLocSlider.setup("Right Eye Horiz Loc", 0, -200.0, 200.0));
-	rightEyePanel.add(rightEyeRotXOffsetSlider.setup("Right Eye X Rot Offset", 0, -90, 90));
-	rightEyePanel.add(rightEyeRotYOffsetSlider.setup("Right Eye Y Rot Offset", 0, -90, 90));
+	rightEyePanel.add(rightEyeRotXOffsetSlider.setup("Right Eye X Rot", 0, -90, 90));
+	rightEyePanel.add(rightEyeRotYOffsetSlider.setup("Right Eye Y Rot", 0, -90, 90));
 
 	targetPanel.setup("Target Panel");
 	targetPanel.setPosition(840, 320);
@@ -172,10 +172,25 @@ void ofApp::update() {
 		//Calculate Lookat for preview draw
 		targetBox.setPosition(targetBoxX, targetBoxY, targetBoxZ);
 
+		//Set look at
 		leftEyeParentBox.lookAt(targetBox, eyeUpVector);
 		rightEyeParentBox.lookAt(targetBox, eyeUpVector);
 
-	
+		//Apply rotation offsets
+		ofVec3f eyeRotVect = leftEyeParentBox.getOrientationEuler();
+		ofVec3f rotOffsetVect;
+		rotOffsetVect.set(leftEyeRotXOffsetSlider, leftEyeRotYOffsetSlider, 0);
+		ofVec3f newEyeRotVect = eyeRotVect + rotOffsetVect;
+		leftEyeParentBox.rotate(newEyeRotVect.x, 1.0, 0.0, 0.0);
+		leftEyeParentBox.rotate(newEyeRotVect.y, 0.0, 1.0, 0.0);
+
+		eyeRotVect = rightEyeParentBox.getOrientationEuler();
+		rotOffsetVect.set(rightEyeRotXOffsetSlider, rightEyeRotYOffsetSlider, 0);
+		newEyeRotVect = eyeRotVect + rotOffsetVect;
+		rightEyeParentBox.rotate(newEyeRotVect.x, 1.0, 0.0, 0.0);
+		rightEyeParentBox.rotate(newEyeRotVect.y, 0.0, 1.0, 0.0);
+
+		//ofLogNotice("Rot: ") << eyeRotVect << " :: " << leftEyeParentBox.getOrientationEuler();
 
 		//send new info to arduino
 		if (serial.isInitialized() && newBlob) {
