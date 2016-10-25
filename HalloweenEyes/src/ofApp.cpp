@@ -11,7 +11,8 @@ void ofApp::setup() {
 	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
 
 	int baud = 57600;
-	serial.setup("COM8", baud);
+	serial.setup("COM8", baud); //Desktop
+	//serial.setup("COM5", baud); //Laptop
 
 	// enable depth->video image calibration
 	kinect.setRegistration(true);
