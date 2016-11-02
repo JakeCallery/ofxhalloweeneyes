@@ -11,8 +11,8 @@ void ofApp::setup() {
 	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
 
 	int baud = 57600;
-	serial.setup("COM8", baud); //Desktop
-	//serial.setup("COM5", baud); //Laptop
+	//serial.setup("COM8", baud); //Desktop
+	serial.setup("COM5", baud); //Laptop
 
 	// enable depth->video image calibration
 	kinect.setRegistration(true);
@@ -53,8 +53,8 @@ void ofApp::setup() {
 	rightEyeParentBox.set(10);
 
 	//Set target offsets and location scale
-	targetBoxLocOffset.set(0.0, -12, 10.0);
-	targetBoxLocScale.set(3.0, 1.2, 1.0);
+	targetBoxLocOffset.set(0.0, -100, 10.0);
+	targetBoxLocScale.set(1.0, 1.0, 1.0);
 
 	//Set up Eye physical -> virtual offsets
 	leftEyeDefaultLoc.set(-10, 0.0, 100.0);
@@ -92,7 +92,7 @@ void ofApp::setup() {
 	targetPanel.add(targetLocScaleYSlider.setup("Target Loc Scale Y", targetBoxLocScale.y, 0.1, 10));
 	targetPanel.add(targetLocScaleZSlider.setup("Target Loc Scale Z", targetBoxLocScale.z, 0.1, 10));
 	targetPanel.add(targetLocOffsetXSlider.setup("Taget Loc Offset X", targetBoxLocOffset.x, -10, 20));
-	targetPanel.add(targetLocOffsetYSlider.setup("Taget Loc Offset Y", targetBoxLocOffset.y, -50, 50));
+	targetPanel.add(targetLocOffsetYSlider.setup("Taget Loc Offset Y", targetBoxLocOffset.y, -200, 50));
 	targetPanel.add(targetLocOffsetZSlider.setup("Taget Loc Offset Z", targetBoxLocOffset.z, 0, 20));
 
 }
